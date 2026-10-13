@@ -1,0 +1,42 @@
+# ==========================================
+# WordPress Core (Only track custom theme/plugin)
+# ==========================================
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/index.php
+/license.txt
+/readme.html
+/xmlrpc.php
+/.htaccess
+wp-config.php
+
+# Default WordPress themes and plugins
+/wp-content/themes/twenty*
+/wp-content/plugins/akismet/
+/wp-content/plugins/hello.php
+
+# ==========================================
+# Dependencies
+# ==========================================
+node_modules/
+vendor/
+
+# ==========================================
+# Logs & Sensitive Files (Strict Rule)
+# ==========================================
+*.log
+wp-content/uploads/
+uploads/logs/
+data-track.log
+
+# ==========================================
+# OS & Editor
+# ==========================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local personal notes
+brijesh/
