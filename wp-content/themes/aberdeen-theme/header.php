@@ -1,6 +1,6 @@
 <?php
 /**
- * Aberdeen Theme Header
+ * Aberdeen Theme Header (Figma Exact Match)
  *
  * @package Aberdeen_Theme
  */
@@ -16,24 +16,14 @@
 
 <header class="site-header" id="site-header">
 	<div class="aberdeen-container header-inner">
-		<!-- Brand Logo -->
+		<!-- Brand Logo (Exact Figma Image) -->
 		<div class="site-branding">
-			<?php if ( has_custom_logo() ) : ?>
-				<?php the_custom_logo(); ?>
-			<?php else : ?>
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="brand-link" <?php echo program_track_attr( 'link', 'header-logo', 'header-navigation', 'componentLink' ); ?>>
-					<div class="brand-crest">
-						<span class="crest-icon">🎓</span>
-					</div>
-					<div class="brand-text">
-						<span class="brand-title">UNIVERSITY OF</span>
-						<span class="brand-name">ABERDEEN</span>
-					</div>
-				</a>
-			<?php endif; ?>
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="brand-link" <?php echo program_track_attr( 'link', 'header-logo', 'header-navigation', 'componentLink' ); ?>>
+				<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo_image.png' ); ?>" alt="<?php bloginfo( 'name' ); ?>" class="aberdeen-logo-img">
+			</a>
 		</div>
 
-		<!-- Navigation Menu -->
+		<!-- Navigation Menu (Figma Exact Links) -->
 		<nav class="main-navigation" id="main-navigation" aria-label="<?php esc_attr_e( 'Primary Navigation', 'aberdeen-theme' ); ?>">
 			<?php
 			if ( has_nav_menu( 'primary' ) ) :
@@ -46,19 +36,25 @@
 			else :
 			?>
 				<ul class="nav-menu">
-					<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>" <?php echo program_track_attr( 'link', 'nav-home', 'header-navigation', 'componentLink' ); ?>>Home</a></li>
-					<li><a href="<?php echo esc_url( home_url( '/programmes' ) ); ?>" <?php echo program_track_attr( 'link', 'nav-programmes', 'header-navigation', 'componentLink' ); ?>>Programmes</a></li>
-					<li><a href="<?php echo esc_url( home_url( '/programmes/undergraduate' ) ); ?>" <?php echo program_track_attr( 'link', 'nav-undergrad', 'header-navigation', 'componentLink' ); ?>>Undergraduate</a></li>
-					<li><a href="<?php echo esc_url( home_url( '/programmes/postgraduate' ) ); ?>" <?php echo program_track_attr( 'link', 'nav-postgrad', 'header-navigation', 'componentLink' ); ?>>Postgraduate</a></li>
+					<li><a href="<?php echo esc_url( home_url( '/programmes' ) ); ?>" <?php echo program_track_attr( 'link', 'nav-study', 'header-navigation', 'componentLink' ); ?>>Study</a></li>
+					<li><a href="#our-programmes" <?php echo program_track_attr( 'link', 'nav-admission', 'header-navigation', 'componentLink' ); ?>>Admission</a></li>
+					<li><a href="#careers-section" <?php echo program_track_attr( 'link', 'nav-about-us', 'header-navigation', 'componentLink' ); ?>>About Us</a></li>
+					<li><a href="#" <?php echo program_track_attr( 'link', 'nav-alumni', 'header-navigation', 'componentLink' ); ?>>Alumni</a></li>
+					<li><a href="#site-footer" <?php echo program_track_attr( 'link', 'nav-contact-us', 'header-navigation', 'componentLink' ); ?>>Contact Us</a></li>
 				</ul>
 			<?php endif; ?>
 		</nav>
 
-		<!-- Header CTA Button (Figma) -->
-		<div class="header-actions">
-			<button type="button" class="btn btn-gold btn-open-modal" data-modal="lead-form-modal" <?php echo program_track_attr( 'button', 'open-enquiry-form', 'header-navigation', 'componentButton' ); ?>>
-				<?php echo esc_html( get_theme_mod( 'aberdeen_header_enquire_label', 'Enquire Now' ) ); ?>
+		<!-- Right Action Section (Apply Now + Aberdeen UK Sub-link) -->
+		<div class="header-right-action">
+			<button type="button" class="btn btn-apply-now btn-open-modal" data-modal="lead-form-modal" <?php echo program_track_attr( 'button', 'header-apply-now', 'header-navigation', 'componentButton' ); ?>>
+				Apply Now
 			</button>
+			<div class="header-sublink">
+				<a href="https://www.abdn.ac.uk" target="_blank" rel="noopener noreferrer" class="uk-link" <?php echo program_track_attr( 'link', 'aberdeen-uk-link', 'header-navigation', 'componentLink' ); ?>>
+					University of Aberdeen UK
+				</a>
+			</div>
 			<!-- Mobile Hamburger -->
 			<button type="button" class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="<?php esc_attr_e( 'Toggle Navigation', 'aberdeen-theme' ); ?>">
 				<span></span>

@@ -1,75 +1,100 @@
 <?php
 /**
- * Front Page Template (Home Page matching Figma Desktop Design)
+ * Front Page Template (Figma Exact Match)
+ * Interactive Hero Slider without Page Reload + Exact Assets
  *
  * @package Aberdeen_Theme
  */
 
 get_header();
 
-// Customizer values
-$hero_title    = get_theme_mod( 'aberdeen_hero_title', 'Join the University of Aberdeen in India' );
-$hero_subtitle = get_theme_mod( 'aberdeen_hero_subtitle', 'Discover world-class undergraduate and postgraduate programmes delivered with British academic excellence.' );
-$hero_cta_text = get_theme_mod( 'aberdeen_hero_cta_text', 'Explore Programmes' );
-$hero_cta_url  = get_theme_mod( 'aberdeen_hero_cta_url', '#our-programmes' );
-$hero_bg_image = get_theme_mod( 'aberdeen_hero_image', '' );
-
-$careers_title    = get_theme_mod( 'aberdeen_careers_title', 'Careers and Employability' );
-$careers_text     = get_theme_mod( 'aberdeen_careers_text', 'Our globally recognized degrees equip graduates with cutting-edge skills, professional accreditations, and strong industry linkages to thrive in international careers.' );
-$careers_image    = get_theme_mod( 'aberdeen_careers_image', '' );
-$careers_btn_text = get_theme_mod( 'aberdeen_careers_btn_text', 'Read More' );
-$careers_btn_url  = get_theme_mod( 'aberdeen_careers_btn_url', '#our-programmes' );
+$theme_uri = get_template_directory_uri();
+$hero_bg   = $theme_uri . '/assets/images/hero_image.jpg';
+$careers_img = $theme_uri . '/assets/images/after_hero_section_img.png';
+$undergrad_img = $theme_uri . '/assets/images/home_cours2.png';
+$postgrad_img  = $theme_uri . '/assets/images/home_cours1.jpg';
 ?>
 
-<!-- 1. Hero Section (Figma Desktop) -->
-<section class="hero-section" id="hero-section" <?php if ( $hero_bg_image ) : ?>style="background-image: url('<?php echo esc_url( $hero_bg_image ); ?>');"<?php endif; ?>>
-	<div class="hero-overlay"></div>
-	<div class="aberdeen-container hero-content">
-		<div class="hero-badge">🎓 Top 20 UK University (Guardian 2024)</div>
-		<h1 class="hero-title"><?php echo esc_html( $hero_title ); ?></h1>
-		<p class="hero-subtitle"><?php echo esc_html( $hero_subtitle ); ?></p>
-		
-		<div class="hero-buttons">
-			<a href="<?php echo esc_url( $hero_cta_url ); ?>" class="btn btn-gold" <?php echo program_track_attr( 'link', 'hero-explore-programmes', 'hero-banner', 'componentLink' ); ?>>
-				<?php echo esc_html( $hero_cta_text ); ?>
-			</a>
-			<button type="button" class="btn btn-outline-white btn-open-modal" data-modal="lead-form-modal" <?php echo program_track_attr( 'button', 'hero-open-enquiry', 'hero-banner', 'componentButton' ); ?>>
-				Register Interest
-			</button>
+<!-- =========================================================================
+     1. Hero Section: Exact Figma Match Slider (No Page Reload)
+     ========================================================================= -->
+<section class="hero-slider-section" id="hero-slider-section" style="background-image: url('<?php echo esc_url( $hero_bg ); ?>');">
+	<div class="hero-slider-overlay"></div>
+
+	<!-- Left Navigation Arrow (Figma Teal Box) -->
+	<button type="button" class="hero-arrow hero-arrow-prev" id="hero-prev" aria-label="<?php esc_attr_e( 'Previous Slide', 'aberdeen-theme' ); ?>" <?php echo program_track_attr( 'button', 'hero-slider-prev', 'hero-carousel', 'componentButton' ); ?>>
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+			<polyline points="15 18 9 12 15 6"></polyline>
+		</svg>
+	</button>
+
+	<!-- Right Navigation Arrow (Figma Teal Box) -->
+	<button type="button" class="hero-arrow hero-arrow-next" id="hero-next" aria-label="<?php esc_attr_e( 'Next Slide', 'aberdeen-theme' ); ?>" <?php echo program_track_attr( 'button', 'hero-slider-next', 'hero-carousel', 'componentButton' ); ?>>
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+			<polyline points="9 18 15 12 9 6"></polyline>
+		</svg>
+	</button>
+
+	<!-- Slider Content Wrapper -->
+	<div class="aberdeen-container hero-slider-container">
+		<div class="hero-slides-wrapper" id="hero-slides-wrapper">
+			
+			<!-- Slide 1 (Exact Figma Screenshot) -->
+			<div class="hero-slide active" data-slide="0">
+				<h1 class="hero-slide-title">Join the University of Aberdeen India</h1>
+				<p class="hero-slide-subtitle btn-open-modal" data-modal="lead-form-modal" role="button" tabindex="0" <?php echo program_track_attr( 'button', 'hero-slide-1-cta', 'hero-carousel', 'componentButton' ); ?>>
+					Global challenges are waiting for new ways of thinking. Discover your true north and start creating a more inclusive and sustainable world 
+					<span class="slide-arrow-gold">&rarr;</span>
+				</p>
+			</div>
+
+			<!-- Slide 2 -->
+			<div class="hero-slide" data-slide="1">
+				<h1 class="hero-slide-title">World-Class British Degrees in Mumbai</h1>
+				<p class="hero-slide-subtitle btn-open-modal" data-modal="lead-form-modal" role="button" tabindex="0" <?php echo program_track_attr( 'button', 'hero-slide-2-cta', 'hero-carousel', 'componentButton' ); ?>>
+					Equipping future innovators with cutting-edge artificial intelligence, software engineering, and global business curricula 
+					<span class="slide-arrow-gold">&rarr;</span>
+				</p>
+			</div>
+
+			<!-- Slide 3 -->
+			<div class="hero-slide" data-slide="2">
+				<h1 class="hero-slide-title">Admissions Open for Academic Year 2025-26</h1>
+				<p class="hero-slide-subtitle btn-open-modal" data-modal="lead-form-modal" role="button" tabindex="0" <?php echo program_track_attr( 'button', 'hero-slide-3-cta', 'hero-carousel', 'componentButton' ); ?>>
+					Apply now for undergraduate and postgraduate programmes with international faculty and scholarship opportunities 
+					<span class="slide-arrow-gold">&rarr;</span>
+				</p>
+			</div>
+
 		</div>
 
-		<!-- Slider Dots Indicator (Figma) -->
-		<div class="slider-indicators" aria-hidden="true">
-			<span class="dot active"></span>
-			<span class="dot"></span>
-			<span class="dot"></span>
+		<!-- 3 Slider Dots (Figma Exact: Active filled, Others hollow) -->
+		<div class="hero-dots-nav" id="hero-dots" role="tablist" aria-label="<?php esc_attr_e( 'Hero Slide Dots', 'aberdeen-theme' ); ?>">
+			<button type="button" class="hero-dot active" data-index="0" aria-label="<?php esc_attr_e( 'Go to slide 1', 'aberdeen-theme' ); ?>" <?php echo program_track_attr( 'button', 'hero-dot-1', 'hero-carousel', 'componentButton' ); ?>></button>
+			<button type="button" class="hero-dot" data-index="1" aria-label="<?php esc_attr_e( 'Go to slide 2', 'aberdeen-theme' ); ?>" <?php echo program_track_attr( 'button', 'hero-dot-2', 'hero-carousel', 'componentButton' ); ?>></button>
+			<button type="button" class="hero-dot" data-index="2" aria-label="<?php esc_attr_e( 'Go to slide 3', 'aberdeen-theme' ); ?>" <?php echo program_track_attr( 'button', 'hero-dot-3', 'hero-carousel', 'componentButton' ); ?>></button>
 		</div>
 	</div>
 </section>
 
-<!-- 2. Careers and Employability Section (Figma Desktop) -->
+<!-- =========================================================================
+     2. Careers and Employability Section (Figma Desktop)
+     ========================================================================= -->
 <section class="careers-section section-padding" id="careers-section">
 	<div class="aberdeen-container">
 		<div class="careers-grid">
-			<!-- Image Column -->
+			<!-- Image Column (Exact after_hero_section_img.png) -->
 			<div class="careers-media">
-				<?php if ( $careers_image ) : ?>
-					<img src="<?php echo esc_url( $careers_image ); ?>" alt="<?php echo esc_attr( $careers_title ); ?>" class="careers-img">
-				<?php else : ?>
-					<div class="careers-placeholder-media">
-						<div class="media-illustration">
-							<span class="icon-campus">🏛️</span>
-							<p>World-Class Campus Experience</p>
-						</div>
-					</div>
-				<?php endif; ?>
+				<img src="<?php echo esc_url( $careers_img ); ?>" alt="<?php esc_attr_e( 'Students at Aberdeen', 'aberdeen-theme' ); ?>" class="careers-img">
 			</div>
 
 			<!-- Content Column -->
 			<div class="careers-content">
 				<span class="section-tag">Global Pathways</span>
-				<h2 class="section-title"><?php echo esc_html( $careers_title ); ?></h2>
-				<p class="section-text"><?php echo esc_html( $careers_text ); ?></p>
+				<h2 class="section-title">Careers and Employability</h2>
+				<p class="section-text">
+					Our globally recognized degrees equip graduates with cutting-edge skills, professional accreditations, and strong industry linkages to thrive in international careers.
+				</p>
 				<div class="careers-features">
 					<div class="feature-item">
 						<span class="feature-check">✓</span>
@@ -77,7 +102,7 @@ $careers_btn_url  = get_theme_mod( 'aberdeen_careers_btn_url', '#our-programmes'
 					</div>
 					<div class="feature-item">
 						<span class="feature-check">✓</span>
-						<span>Dual Campus Study Opportunities</span>
+						<span>Dual Campus Study Opportunities in UK & India</span>
 					</div>
 					<div class="feature-item">
 						<span class="feature-check">✓</span>
@@ -85,16 +110,18 @@ $careers_btn_url  = get_theme_mod( 'aberdeen_careers_btn_url', '#our-programmes'
 					</div>
 				</div>
 				<div class="careers-cta">
-					<a href="<?php echo esc_url( $careers_btn_url ); ?>" class="btn btn-gold" <?php echo program_track_attr( 'link', 'careers-read-more', 'careers-overview', 'componentLink' ); ?>>
-						<?php echo esc_html( $careers_btn_text ); ?>
-					</a>
+					<button type="button" class="btn btn-gold btn-open-modal" data-modal="lead-form-modal" <?php echo program_track_attr( 'button', 'careers-read-more', 'careers-overview', 'componentButton' ); ?>>
+						Read More
+					</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
 
-<!-- 3. Our Programmes Section (Figma Desktop) -->
+<!-- =========================================================================
+     3. Our Programmes Section (Figma Desktop)
+     ========================================================================= -->
 <section class="programmes-section section-padding" id="our-programmes">
 	<div class="aberdeen-container">
 		<div class="section-header text-center">
@@ -103,32 +130,32 @@ $careers_btn_url  = get_theme_mod( 'aberdeen_careers_btn_url', '#our-programmes'
 			<p class="section-subtitle">Choose from internationally accredited degrees designed to launch your global career.</p>
 		</div>
 
-		<!-- Two Main Program Track Cards (Figma) -->
+		<!-- Two Main Program Track Cards (Figma Exact Images) -->
 		<div class="programme-tracks-grid">
-			<!-- Card 1: Undergraduate -->
+			<!-- Track 1: Undergraduate (home_cours2.png) -->
 			<div class="track-card track-undergrad">
-				<div class="track-media">
+				<div class="track-img-container">
+					<img src="<?php echo esc_url( $undergrad_img ); ?>" alt="<?php esc_attr_e( 'Undergraduate Programmes', 'aberdeen-theme' ); ?>" class="track-hero-img">
 					<div class="track-tag">Undergraduate</div>
-					<div class="track-illustration">💻 AI & Computing</div>
 				</div>
 				<div class="track-body">
 					<h3 class="track-title">Undergraduate Programmes</h3>
-					<p class="track-desc">Comprehensive 3 & 4 year degrees in Computer Applications, Software Engineering, and International Business.</p>
+					<p class="track-desc">Bachelor of Computer Application (BCA), Computer Engineering, and Software Design degrees.</p>
 					<a href="<?php echo esc_url( home_url( '/programmes/undergraduate' ) ); ?>" class="btn btn-outline-gold" <?php echo program_track_attr( 'link', 'home-card-undergrad', 'programme-tracks', 'componentLink' ); ?>>
 						View Undergraduate Programmes &rarr;
 					</a>
 				</div>
 			</div>
 
-			<!-- Card 2: Postgraduate -->
+			<!-- Track 2: Postgraduate (home_cours1.jpg) -->
 			<div class="track-card track-postgrad">
-				<div class="track-media">
+				<div class="track-img-container">
+					<img src="<?php echo esc_url( $postgrad_img ); ?>" alt="<?php esc_attr_e( 'Postgraduate Programmes', 'aberdeen-theme' ); ?>" class="track-hero-img">
 					<div class="track-tag">Postgraduate</div>
-					<div class="track-illustration">🔬 Advanced Engineering</div>
 				</div>
 				<div class="track-body">
 					<h3 class="track-title">Postgraduate Programmes</h3>
-					<p class="track-desc">Specialized master's degrees providing deep research immersion, executive mentorship, and industry capstones.</p>
+					<p class="track-desc">Master of Computer Application (MCA), Data Science, and Executive Management degrees.</p>
 					<a href="<?php echo esc_url( home_url( '/programmes/postgraduate' ) ); ?>" class="btn btn-outline-gold" <?php echo program_track_attr( 'link', 'home-card-postgrad', 'programme-tracks', 'componentLink' ); ?>>
 						View Postgraduate Programmes &rarr;
 					</a>
@@ -159,19 +186,17 @@ $careers_btn_url  = get_theme_mod( 'aberdeen_careers_btn_url', '#our-programmes'
 				endwhile;
 				wp_reset_postdata();
 			else :
-				// Fallback demonstration cards if query hasn't been seeded yet
+				// Demonstration cards matching Figma
 				$demo_programs = array(
-					array( 'title' => 'Bachelor of Computer Application (BCA)', 'year' => '2025-26', 'duration' => '3 Years' ),
-					array( 'title' => 'Bachelor of Engineering (B.E.) in CS', 'year' => '2025-26', 'duration' => '4 Years' ),
-					array( 'title' => 'Master of Computer Application (MCA)', 'year' => '2025-26', 'duration' => '2 Years' ),
+					array( 'title' => 'Bachelor of Computer Application (BCA)', 'year' => '2025-26', 'duration' => '3 Years', 'img' => $theme_uri . '/assets/images/program_img.jpg' ),
+					array( 'title' => 'Bachelor of Engineering (B.E.) in CS', 'year' => '2025-26', 'duration' => '4 Years', 'img' => $theme_uri . '/assets/images/program_img2.jpg' ),
+					array( 'title' => 'Master of Computer Application (MCA)', 'year' => '2025-26', 'duration' => '2 Years', 'img' => $theme_uri . '/assets/images/home_cours1.jpg' ),
 				);
 				foreach ( $demo_programs as $index => $demo ) :
 			?>
 				<article class="program-card">
 					<div class="card-media">
-						<div class="card-placeholder-img">
-							<span>🎓 <?php echo esc_html( $demo['title'] ); ?></span>
-						</div>
+						<img src="<?php echo esc_url( $demo['img'] ); ?>" alt="<?php echo esc_attr( $demo['title'] ); ?>" class="card-img">
 					</div>
 					<div class="card-body">
 						<div class="card-meta">

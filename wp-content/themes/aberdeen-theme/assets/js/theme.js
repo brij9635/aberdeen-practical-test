@@ -1,6 +1,7 @@
 /**
  * Aberdeen Theme JavaScript
- * Handles Navigation, Lead Form Popup (Figma), and Click Event Tracking (Task 8)
+ * Handles Navigation, Interactive Hero Slider (No Page Reload),
+ * Lead Form Popup (Figma), and Click Event Tracking (Task 8)
  */
 document.addEventListener('DOMContentLoaded', function () {
 	'use strict';
@@ -19,7 +20,101 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	// ==========================================
-	// 2. Modal (Lead Form & Thank You Screen)
+	// 2. Interactive Hero Slider (No Page Reload)
+	// ==========================================
+	const slides = document.querySelectorAll('.hero-slide');
+	const dots = document.querySelectorAll('.hero-dot');
+	const prevBtn = document.getElementById('hero-prev');
+	const nextBtn = document.getElementById('hero-next');
+	let currentSlide = 0;
+	let sliderInterval = null;
+
+	function goToSlide(index) {
+		if (slides.length === 0) return;
+
+		// Normalize index
+		if (index < 0) {
+			currentSlide = slides.length - 1;
+		} else if (index >= slides.length) {
+			currentSlide = 0;
+		} else {
+			currentSlide = index;
+		}
+
+		// Update slides classes
+		slides.forEach(function (slide, i) {
+			if (i === currentSlide) {
+				slide.classList.add('active');
+			} else {
+				slide.classList.remove('active');
+			}
+		});
+
+		// Update dots classes
+		dots.forEach(function (dot, i) {
+			if (i === currentSlide) {
+				dot.classList.add('active');
+			} else {
+				dot.classList.remove('active');
+			}
+		});
+	}
+
+	function startAutoPlay() {
+		stopAutoPlay();
+		sliderInterval = setInterval(function () {
+			goToSlide(currentSlide + 1);
+		}, 6000);
+	}
+
+	function stopAutoPlay() {
+		if (sliderInterval) {
+			clearInterval(sliderInterval);
+			sliderInterval = null;
+		}
+	}
+
+	if (slides.length > 0) {
+		// Arrow navigation
+		if (prevBtn) {
+			prevBtn.addEventListener('click', function (e) {
+				e.preventDefault();
+				goToSlide(currentSlide - 1);
+				startAutoPlay();
+			});
+		}
+
+		if (nextBtn) {
+			nextBtn.addEventListener('click', function (e) {
+				e.preventDefault();
+				goToSlide(currentSlide + 1);
+				startAutoPlay();
+			});
+		}
+
+		// Dots navigation
+		dots.forEach(function (dot) {
+			dot.addEventListener('click', function (e) {
+				e.preventDefault();
+				const targetIndex = parseInt(dot.getAttribute('data-index'), 10);
+				goToSlide(targetIndex);
+				startAutoPlay();
+			});
+		});
+
+		// Pause on hover
+		const sliderContainer = document.getElementById('hero-slider-section');
+		if (sliderContainer) {
+			sliderContainer.addEventListener('mouseenter', stopAutoPlay);
+			sliderContainer.addEventListener('mouseleave', startAutoPlay);
+		}
+
+		// Start autoplay
+		startAutoPlay();
+	}
+
+	// ==========================================
+	// 3. Modal (Lead Form & Thank You Screen)
 	// ==========================================
 	const modals = document.querySelectorAll('.aberdeen-modal');
 
@@ -62,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	// ==========================================
-	// 3. Lead Form AJAX Handler
+	// 4. Lead Form AJAX Handler
 	// ==========================================
 	const leadForm = document.getElementById('aberdeen-lead-form');
 	const formContainer = document.getElementById('lead-form-container');
@@ -114,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	// ==========================================
-	// 4. Click Tracking Data Layer (Task 8)
+	// 5. Click Tracking Data Layer (Task 8)
 	// Uses Event Delegation + navigator.sendBeacon / fetch(keepalive)
 	// ==========================================
 	document.addEventListener('click', function (e) {

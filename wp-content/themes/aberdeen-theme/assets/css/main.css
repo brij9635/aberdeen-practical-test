@@ -1,34 +1,37 @@
 /**
  * Aberdeen University Theme Stylesheet
- * Responsive design matching Figma layout, 3/2/1 column card grid, and accessible states.
+ * Exact Figma Match for Header, Hero Slider, Careers & Programmes
  */
 
 /* ==========================================================================
    1. CSS Variables & Reset
    ========================================================================== */
 :root {
-	--color-navy-dark: #051b2c;
-	--color-navy-light: #0a2d47;
-	--color-navy-card: #0c2b40;
-	--color-gold: #e5ad35;
-	--color-gold-hover: #c99324;
-	--color-gold-light: #fef8eb;
+	--color-header-bg: #0c2336;
+	--color-navy-dark: #071c2b;
+	--color-navy-light: #0d2f44;
+	--color-navy-card: #092334;
+	--color-mint: #2dd4bf;
+	--color-mint-light: #5eead4;
+	--color-teal-arrow: #093c4e;
+	--color-gold: #f2af29;
+	--color-gold-hover: #db9c1f;
 	--color-text-dark: #1e293b;
 	--color-text-muted: #64748b;
 	--color-text-white: #ffffff;
 	--color-bg-light: #f8fafc;
 	--color-border: #e2e8f0;
-	--color-border-dark: #1b3d58;
+	--color-border-dark: #14354c;
 	--color-success: #16a34a;
 	--font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	--font-heading: 'Outfit', 'Inter', sans-serif;
-	--container-width: 1200px;
+	--container-width: 1240px;
 	--radius-sm: 6px;
 	--radius-md: 10px;
-	--radius-lg: 16px;
+	--radius-lg: 14px;
 	--shadow-sm: 0 2px 4px rgba(0,0,0,0.06);
-	--shadow-md: 0 6px 16px rgba(5, 27, 44, 0.08);
-	--shadow-lg: 0 12px 32px rgba(5, 27, 44, 0.14);
+	--shadow-md: 0 6px 18px rgba(7, 28, 43, 0.12);
+	--shadow-lg: 0 16px 36px rgba(7, 28, 43, 0.2);
 	--transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -70,8 +73,8 @@ button {
 	max-width: var(--container-width);
 	margin-left: auto;
 	margin-right: auto;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding-left: 24px;
+	padding-right: 24px;
 }
 
 .section-padding {
@@ -104,7 +107,7 @@ h1, h2, h3, h4, h5, h6 {
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
 	color: var(--color-gold);
-	background: rgba(229, 173, 53, 0.12);
+	background: rgba(242, 175, 41, 0.12);
 	padding: 4px 14px;
 	border-radius: 50px;
 	margin-bottom: 12px;
@@ -145,26 +148,13 @@ h1, h2, h3, h4, h5, h6 {
 .btn-gold {
 	background-color: var(--color-gold);
 	color: var(--color-navy-dark);
-	box-shadow: 0 4px 12px rgba(229, 173, 53, 0.3);
+	box-shadow: 0 4px 12px rgba(242, 175, 41, 0.3);
 }
 
 .btn-gold:hover {
 	background-color: var(--color-gold-hover);
 	color: var(--color-navy-dark);
 	transform: translateY(-2px);
-	box-shadow: 0 6px 16px rgba(229, 173, 53, 0.4);
-}
-
-.btn-outline-white {
-	background: transparent;
-	color: var(--color-text-white);
-	border: 1.5px solid rgba(255, 255, 255, 0.7);
-}
-
-.btn-outline-white:hover {
-	background: rgba(255, 255, 255, 0.15);
-	border-color: var(--color-text-white);
-	color: var(--color-text-white);
 }
 
 .btn-outline-gold {
@@ -192,76 +182,90 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   4. Header & Navigation (Figma)
+   4. Header & Navigation (Figma Exact Match)
    ========================================================================== */
 .site-header {
-	background-color: var(--color-navy-dark);
+	background-color: var(--color-header-bg);
 	position: sticky;
 	top: 0;
 	z-index: 1000;
-	box-shadow: var(--shadow-sm);
-	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .header-inner {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	height: 82px;
+	height: 94px;
 }
 
 .brand-link {
 	display: flex;
 	align-items: center;
-	gap: 12px;
 }
 
-.brand-crest {
-	font-size: 2rem;
-	line-height: 1;
-}
-
-.brand-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.brand-title {
-	font-size: 0.65rem;
-	letter-spacing: 0.2em;
-	color: rgba(255, 255, 255, 0.7);
-	font-weight: 600;
-}
-
-.brand-name {
-	font-size: 1.25rem;
-	letter-spacing: 0.05em;
-	color: var(--color-text-white);
-	font-weight: 800;
+.aberdeen-logo-img {
+	height: 54px;
+	width: auto;
+	object-fit: contain;
 }
 
 .main-navigation .nav-menu {
 	display: flex;
 	list-style: none;
-	gap: 32px;
+	gap: 34px;
 }
 
 .main-navigation .nav-menu a {
-	color: rgba(255, 255, 255, 0.85);
+	color: rgba(255, 255, 255, 0.95);
 	font-size: 0.95rem;
 	font-weight: 500;
 	padding: 8px 0;
-	position: relative;
+	letter-spacing: 0.02em;
 }
 
 .main-navigation .nav-menu a:hover {
 	color: var(--color-gold);
 }
 
-.header-actions {
+.header-right-action {
 	display: flex;
-	align-items: center;
-	gap: 16px;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: center;
+	gap: 6px;
+}
+
+.btn-apply-now {
+	background-color: var(--color-gold);
+	color: var(--color-header-bg);
+	font-weight: 700;
+	font-size: 0.95rem;
+	padding: 9px 24px;
+	border-radius: 50px;
+	box-shadow: 0 3px 10px rgba(242, 175, 41, 0.35);
+	transition: var(--transition);
+}
+
+.btn-apply-now:hover {
+	background-color: var(--color-gold-hover);
+	transform: translateY(-2px);
+	box-shadow: 0 5px 14px rgba(242, 175, 41, 0.45);
+}
+
+.header-sublink .uk-link {
+	color: var(--color-gold);
+	font-size: 0.82rem;
+	font-weight: 600;
+	border-bottom: 1px dotted var(--color-gold);
+	padding-bottom: 1px;
+	letter-spacing: 0.03em;
+}
+
+.header-sublink .uk-link:hover {
+	color: #fff;
+	border-bottom-color: #fff;
 }
 
 .mobile-menu-toggle {
@@ -275,89 +279,147 @@ h1, h2, h3, h4, h5, h6 {
 	width: 24px;
 	height: 2px;
 	background-color: var(--color-text-white);
-	transition: var(--transition);
 }
 
 /* ==========================================================================
-   5. Hero Section (Figma Desktop)
+   5. Hero Section: Exact Figma Match Slider (No Page Reload)
    ========================================================================== */
-.hero-section {
+.hero-slider-section {
 	position: relative;
 	background-color: var(--color-navy-dark);
 	background-size: cover;
-	background-position: center;
-	min-height: 560px;
+	background-position: center bottom;
+	background-repeat: no-repeat;
+	min-height: 640px;
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 	color: var(--color-text-white);
 	overflow: hidden;
 }
 
-.hero-overlay {
+.hero-slider-overlay {
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(135deg, rgba(5, 27, 44, 0.92) 0%, rgba(7, 35, 56, 0.85) 60%, rgba(13, 47, 68, 0.75) 100%);
+	background: linear-gradient(180deg, rgba(12, 35, 54, 0.35) 0%, rgba(7, 28, 43, 0.75) 55%, rgba(6, 23, 35, 0.97) 100%);
 }
 
-.hero-content {
+/* Figma Arrow Controls */
+.hero-arrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 44px;
+	height: 72px;
+	background: rgba(9, 60, 78, 0.88);
+	color: var(--color-mint);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 10;
+	transition: var(--transition);
+}
+
+.hero-arrow:hover {
+	background: rgba(9, 60, 78, 1);
+	color: #ffffff;
+}
+
+.hero-arrow-prev {
+	left: 0;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.hero-arrow-next {
+	right: 0;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.hero-slider-container {
 	position: relative;
-	z-index: 2;
-	max-width: 780px;
-	padding-top: 40px;
-	padding-bottom: 40px;
+	z-index: 5;
+	width: 100%;
+	text-align: center;
+	padding-top: 180px;
+	padding-bottom: 46px;
 }
 
-.hero-badge {
-	display: inline-block;
-	background: rgba(229, 173, 53, 0.18);
-	border: 1px solid rgba(229, 173, 53, 0.4);
-	color: var(--color-gold);
-	padding: 6px 16px;
-	border-radius: 50px;
-	font-size: 0.85rem;
-	font-weight: 600;
-	margin-bottom: 20px;
+.hero-slides-wrapper {
+	min-height: 140px;
+	position: relative;
 }
 
-.hero-title {
-	font-size: 3.25rem;
-	color: var(--color-text-white);
-	margin-bottom: 20px;
-	letter-spacing: -0.02em;
+.hero-slide {
+	display: none;
+	opacity: 0;
+	transform: translateY(10px);
+	transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
-.hero-subtitle {
-	font-size: 1.25rem;
-	color: rgba(255, 255, 255, 0.85);
-	margin-bottom: 36px;
+.hero-slide.active {
+	display: block;
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.hero-slide-title {
+	font-size: 2.85rem;
+	font-weight: 800;
+	color: var(--color-mint);
+	margin-bottom: 14px;
+	letter-spacing: -0.01em;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-slide-subtitle {
+	font-size: 1.15rem;
+	color: var(--color-mint-light);
+	max-width: 840px;
+	margin: 0 auto;
 	line-height: 1.6;
-}
-
-.hero-buttons {
-	display: flex;
-	gap: 16px;
-	flex-wrap: wrap;
-}
-
-.slider-indicators {
-	display: flex;
-	gap: 10px;
-	margin-top: 48px;
-}
-
-.slider-indicators .dot {
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background: rgba(255, 255, 255, 0.3);
 	cursor: pointer;
 	transition: var(--transition);
 }
 
-.slider-indicators .dot.active {
-	background: var(--color-gold);
-	width: 28px;
-	border-radius: 10px;
+.hero-slide-subtitle:hover {
+	color: #ffffff;
+}
+
+.slide-arrow-gold {
+	color: var(--color-gold);
+	font-weight: 800;
+	margin-left: 8px;
+	font-size: 1.2rem;
+	display: inline-block;
+	transition: transform 0.2s ease;
+}
+
+.hero-slide-subtitle:hover .slide-arrow-gold {
+	transform: translateX(4px);
+}
+
+/* 3 Pagination Dots */
+.hero-dots-nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 14px;
+	margin-top: 28px;
+}
+
+.hero-dot {
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	border: 2px solid var(--color-mint);
+	background: transparent;
+	padding: 0;
+	transition: var(--transition);
+}
+
+.hero-dot.active {
+	background: var(--color-mint);
 }
 
 /* ==========================================================================
@@ -374,26 +436,16 @@ h1, h2, h3, h4, h5, h6 {
 	align-items: center;
 }
 
-.careers-placeholder-media {
-	background: linear-gradient(135deg, var(--color-navy-dark), var(--color-navy-light));
+.careers-media {
 	border-radius: var(--radius-lg);
-	height: 380px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: #fff;
-	text-align: center;
+	overflow: hidden;
 	box-shadow: var(--shadow-md);
 }
 
-.careers-placeholder-media .media-illustration {
-	font-size: 3rem;
-}
-
-.careers-placeholder-media p {
-	margin-top: 12px;
-	font-size: 1.1rem;
-	color: var(--color-gold);
+.careers-img {
+	width: 100%;
+	height: 400px;
+	object-fit: cover;
 }
 
 .careers-content .section-title {
@@ -435,7 +487,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   7. Programmes Section & Reusable Cards (Task 5 & Figma)
+   7. Programmes Section (Figma Desktop)
    ========================================================================== */
 .programmes-section {
 	background-color: var(--color-bg-light);
@@ -463,34 +515,38 @@ h1, h2, h3, h4, h5, h6 {
 	box-shadow: var(--shadow-lg);
 }
 
-.track-media {
-	height: 160px;
-	background: linear-gradient(135deg, rgba(5, 27, 44, 0.8), rgba(12, 43, 64, 0.95));
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	padding: 20px;
-	border-bottom: 1px solid var(--color-border-dark);
+.track-img-container {
+	position: relative;
+	height: 220px;
+	overflow: hidden;
+}
+
+.track-hero-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.4s ease;
+}
+
+.track-card:hover .track-hero-img {
+	transform: scale(1.05);
 }
 
 .track-tag {
-	align-self: flex-start;
+	position: absolute;
+	top: 16px;
+	left: 16px;
 	background: var(--color-gold);
-	color: var(--color-navy-dark);
+	color: var(--color-header-bg);
 	font-size: 0.75rem;
 	font-weight: 700;
 	text-transform: uppercase;
-	padding: 4px 10px;
+	padding: 4px 12px;
 	border-radius: 4px;
 }
 
-.track-illustration {
-	font-size: 1.25rem;
-	font-weight: 600;
-}
-
 .track-body {
-	padding: 30px;
+	padding: 28px;
 }
 
 .track-title {
@@ -521,9 +577,7 @@ h1, h2, h3, h4, h5, h6 {
 	color: var(--color-gold);
 }
 
-/* --------------------------------------------------------------------------
-   Responsive Programs Grid (3 / 2 / 1 columns as required by Task 5)
-   -------------------------------------------------------------------------- */
+/* 3 / 2 / 1 Responsive Grid */
 .programs-grid {
 	display: grid;
 	gap: 28px;
@@ -533,7 +587,6 @@ h1, h2, h3, h4, h5, h6 {
 	grid-template-columns: repeat(3, 1fr);
 }
 
-/* Individual Reusable Program Card (Task 5) */
 .program-card {
 	background-color: var(--color-navy-card);
 	border-radius: var(--radius-md);
@@ -548,11 +601,10 @@ h1, h2, h3, h4, h5, h6 {
 .program-card:hover {
 	transform: translateY(-4px);
 	box-shadow: var(--shadow-md);
-	border-color: rgba(229, 173, 53, 0.4);
+	border-color: rgba(242, 175, 41, 0.4);
 }
 
 .card-media {
-	position: relative;
 	height: 200px;
 	background-color: #041421;
 	overflow: hidden;
@@ -567,20 +619,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .program-card:hover .card-img {
 	transform: scale(1.05);
-}
-
-.card-placeholder-img {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 20px;
-	text-align: center;
-	background: linear-gradient(135deg, #09263a, #0e3b59);
-	color: var(--color-text-white);
-	font-weight: 600;
-	font-size: 1rem;
 }
 
 .card-body {
@@ -607,9 +645,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .badge-year {
-	background: rgba(229, 173, 53, 0.15);
+	background: rgba(242, 175, 41, 0.15);
 	color: var(--color-gold);
-	border: 1px solid rgba(229, 173, 53, 0.3);
+	border: 1px solid rgba(242, 175, 41, 0.3);
 }
 
 .badge-duration {
@@ -619,7 +657,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .badge-type {
 	background: var(--color-gold);
-	color: var(--color-navy-dark);
+	color: var(--color-header-bg);
 }
 
 .card-title {
@@ -818,7 +856,6 @@ h1, h2, h3, h4, h5, h6 {
 	margin-bottom: 48px;
 }
 
-/* Dynamic Repeater Sections (Task 3 & 6) */
 .repeater-sections-wrapper {
 	margin-bottom: 48px;
 }
@@ -862,7 +899,6 @@ h1, h2, h3, h4, h5, h6 {
 	color: var(--color-text-muted);
 }
 
-/* Detail Bottom CTA Box */
 .detail-bottom-cta {
 	margin-top: 40px;
 }
@@ -892,7 +928,6 @@ h1, h2, h3, h4, h5, h6 {
 	flex-wrap: wrap;
 }
 
-/* Sidebar Facts */
 .sidebar-card {
 	background: #fff;
 	border: 1px solid var(--color-border);
@@ -938,7 +973,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   11. Modal Popup (Lead Form & Thank You Screen - Figma)
+   11. Modal Popup (Lead Form & Thank You Screen)
    ========================================================================== */
 .aberdeen-modal {
 	position: fixed;
@@ -1067,7 +1102,6 @@ h1, h2, h3, h4, h5, h6 {
 	margin-top: 24px;
 }
 
-/* Thank You Screen Alert (Figma) */
 .thank-you-alert {
 	text-align: center;
 	padding: 20px 0;
@@ -1181,7 +1215,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   13. Responsive Breakpoints (3 / 2 / 1 grid columns)
+   13. Responsive Breakpoints
    ========================================================================== */
 @media (max-width: 1024px) {
 	.grid-3-cols {
@@ -1198,8 +1232,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 768px) {
-	.hero-title {
-		font-size: 2.25rem;
+	.hero-slide-title {
+		font-size: 2rem;
+	}
+	.hero-slide-subtitle {
+		font-size: 1rem;
 	}
 	.main-navigation {
 		display: none;
