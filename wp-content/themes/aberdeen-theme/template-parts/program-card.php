@@ -15,14 +15,21 @@ if ( ! $card_post_id ) {
 $title         = get_the_title( $card_post_id );
 $permalink     = get_permalink( $card_post_id );
 $academic_year = get_post_meta( $card_post_id, 'academic_year', true );
-$duration      = get_post_meta( $card_post_id, 'duration', true );
+if ( empty( $academic_year ) ) {
+	$academic_year = get_post_meta( $card_post_id, '_program_academic_year', true );
+}
+
+$duration = get_post_meta( $card_post_id, 'duration', true );
+if ( empty( $duration ) ) {
+	$duration = get_post_meta( $card_post_id, '_program_duration', true );
+}
 
 // Fallbacks for display
 if ( empty( $academic_year ) ) {
 	$academic_year = '2025-26';
 }
 if ( empty( $duration ) ) {
-	$duration = '3 Years';
+	$duration = '3 Years Full Time';
 }
 ?>
 <article class="program-card" id="program-card-<?php echo esc_attr( $card_post_id ); ?>">

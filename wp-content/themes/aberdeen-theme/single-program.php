@@ -14,17 +14,56 @@ while ( have_posts() ) :
 
 	$post_id          = get_the_ID();
 	$academic_year    = get_post_meta( $post_id, 'academic_year', true );
+	if ( empty( $academic_year ) ) {
+		$academic_year = get_post_meta( $post_id, '_program_academic_year', true );
+	}
+
 	$duration         = get_post_meta( $post_id, 'duration', true );
+	if ( empty( $duration ) ) {
+		$duration = get_post_meta( $post_id, '_program_duration', true );
+	}
+
 	$content_sections = get_post_meta( $post_id, 'content_sections', true );
-	$terms            = get_the_terms( $post_id, 'program-type' );
+	if ( empty( $content_sections ) ) {
+		$content_sections = get_post_meta( $post_id, '_program_content_sections', true );
+	}
+
+	$terms = get_the_terms( $post_id, 'program-type' );
 
 	if ( empty( $academic_year ) ) {
 		$academic_year = '2025-26';
 	}
 	if ( empty( $duration ) ) {
-		$duration = '3 Years';
+		$duration = '3 Years Full Time';
+	}
+
+	// Bonus 2: Schema.org (JSON-LD) Course Markup
+	$schema_data = array(
+		'@context'                     => 'https://schema.org',
+		'@type'                        => 'Course',
+		'name'                         => get_the_title(),
+		'description'                  => wp_strip_all_tags( get_the_excerpt() ? get_the_excerpt() : wp_trim_words( get_the_content(), 30 ) ),
+		'provider'                     => array(
+			'@type'  => 'CollegeOrUniversity',
+			'name'   => 'University of Aberdeen',
+			'url'    => home_url( '/' ),
+			'sameAs' => 'https://www.abdn.ac.uk',
+		),
+		'timeRequired'                 => $duration,
+		'startDate'                    => $academic_year,
+		'url'                          => get_permalink(),
+		'educationalCredentialAwarded' => ( ! empty( $terms ) && ! is_wp_error( $terms ) ) ? $terms[0]->name : 'Degree',
+	);
+
+	if ( has_post_thumbnail() ) {
+		$schema_data['image'] = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 	}
 ?>
+
+<!-- Schema.org JSON-LD Structured Data (Bonus 2) -->
+<script type="application/ld+json">
+<?php echo wp_json_encode( $schema_data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ); ?>
+</script>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'single-program-detail' ); ?>>
 
@@ -40,17 +79,17 @@ while ( have_posts() ) :
 							</a>
 						<?php endforeach; ?>
 					<?php endif; ?>
-					<span class="badge badge-year">📅 Academic Year: <?php echo esc_html( $academic_year ); ?></span>
-					<span class="badge badge-duration">⏱️ Duration: <?php echo esc_html( $duration ); ?></span>
+					<span class="badge badge-year">Academic Year: <?php echo esc_html( $academic_year ); ?></span>
+					<span class="badge badge-duration">Duration: <?php echo esc_html( $duration ); ?></span>
 				</div>
 
 				<h1 class="detail-title"><?php the_title(); ?></h1>
 
 				<!-- Action Buttons (Task 6 & Task 8 Tracking) -->
 				<div class="detail-actions">
-					<a href="#apply-section" class="btn btn-gold" <?php echo program_track_attr( 'link', 'apply-now', 'programme-overview', 'componentLink' ); ?>>
+					<button type="button" class="btn btn-gold btn-open-modal" data-modal="lead-form-modal" <?php echo program_track_attr( 'button', 'apply-now', 'programme-overview', 'componentButton' ); ?>>
 						Apply Now
-					</a>
+					</button>
 					<button type="button" class="btn btn-outline-white btn-open-modal" data-modal="lead-form-modal" <?php echo program_track_attr( 'button', 'open-enquiry-form', 'programme-overview', 'componentButton' ); ?>>
 						Enquire Now
 					</button>
@@ -85,7 +124,10 @@ while ( have_posts() ) :
 						<?php foreach ( $content_sections as $index => $section ) :
 							$sec_title = ! empty( $section['title'] ) ? $section['title'] : '';
 							$sec_desc  = ! empty( $section['description'] ) ? $section['description'] : '';
-							$sec_image = ! empty( $section['image'] ) ? $section['image'] : '';
+							$sec_image = ! empty( $section['image_url'] ) ? $section['image_url'] : ( ! empty( $section['image'] ) ? $section['image'] : '' );
+							if ( empty( $sec_image ) && ! empty( $section['image_id'] ) ) {
+								$sec_image = wp_get_attachment_url( $section['image_id'] );
+							}
 						?>
 							<div class="repeater-section-card" id="curriculum-section-<?php echo esc_attr( $index ); ?>">
 								<?php if ( $sec_image ) : ?>
@@ -113,7 +155,7 @@ while ( have_posts() ) :
 					<h3>Ready to Apply for <?php the_title(); ?>?</h3>
 					<p>Admissions for Academic Year <?php echo esc_html( $academic_year ); ?> are now open. Secure your place at the University of Aberdeen.</p>
 					<div class="cta-actions">
-						<button type="button" class="btn btn-gold btn-open-modal" data-modal="lead-form-modal" <?php echo program_track_attr( 'button', 'bottom-cta-enquire', 'programme-overview', 'componentButton' ); ?>>
+						<button type="button" class="btn btn-gold btn-open-modal" data-modal="lead-form-modal" <?php echo program_track_attr( 'button', 'bottom-cta-apply', 'programme-overview', 'componentButton' ); ?>>
 							Start Your Application
 						</button>
 						<a href="<?php echo esc_url( home_url( '/programmes' ) ); ?>" class="btn btn-outline-white" <?php echo program_track_attr( 'link', 'bottom-back-to-programmes', 'programme-overview', 'componentLink' ); ?>>
@@ -137,7 +179,7 @@ while ( have_posts() ) :
 							if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 								echo esc_html( $terms[0]->name );
 							} else {
-								echo 'Undergraduate / Postgraduate';
+								echo 'Degree Programme';
 							}
 							?>
 						</span>

@@ -45,22 +45,26 @@
 			<?php endif; ?>
 		</nav>
 
-		<!-- Right Action Section (Apply Now + Aberdeen UK Sub-link) -->
+		<!-- Right Action Section (Apply Now Button & Mobile Toggle) -->
 		<div class="header-right-action">
 			<button type="button" class="btn btn-apply-now btn-open-modal" data-modal="lead-form-modal" <?php echo program_track_attr( 'button', 'header-apply-now', 'header-navigation', 'componentButton' ); ?>>
 				Apply Now
 			</button>
-			<div class="header-sublink">
-				<a href="https://www.abdn.ac.uk" target="_blank" rel="noopener noreferrer" class="uk-link" <?php echo program_track_attr( 'link', 'aberdeen-uk-link', 'header-navigation', 'componentLink' ); ?>>
-					University of Aberdeen UK
-				</a>
-			</div>
 			<!-- Mobile Hamburger -->
 			<button type="button" class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="<?php esc_attr_e( 'Toggle Navigation', 'aberdeen-theme' ); ?>">
 				<span></span>
 				<span></span>
 				<span></span>
 			</button>
+		</div>
+	</div>
+
+	<!-- Header Sub-Divider Line with UK Text Link (Figma Exact Match) -->
+	<div class="header-divider-row">
+		<div class="aberdeen-container header-divider-inner">
+			<a href="https://www.abdn.ac.uk" target="_blank" rel="noopener noreferrer" class="uk-link" <?php echo program_track_attr( 'link', 'aberdeen-uk-link', 'header-navigation', 'componentLink' ); ?>>
+				University of Aberdeen UK
+			</a>
 		</div>
 	</div>
 </header>
