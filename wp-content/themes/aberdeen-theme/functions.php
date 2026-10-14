@@ -1,57 +1,26 @@
 <?php
 /**
  * Aberdeen University Theme Functions
- *
- * @package Aberdeen_Theme
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// ==========================================
-// 1. Theme Setup & Supports
-// ==========================================
+// 1. Theme Setup
 function aberdeen_theme_setup() {
-	// Let WordPress manage the document title
 	add_theme_support( 'title-tag' );
-
-	// Enable featured images
 	add_theme_support( 'post-thumbnails' );
-	set_post_thumbnail_size( 600, 380, true );
+	add_theme_support( 'html5', array( 'search-form', 'style', 'script' ) );
 
-	// Custom Logo support
-	add_theme_support( 'custom-logo', array(
-		'height'      => 80,
-		'width'       => 260,
-		'flex-height' => true,
-		'flex-width'  => true,
-	) );
-
-	// HTML5 markup support
-	add_theme_support( 'html5', array(
-		'search-form',
-		'comment-form',
-		'comment-list',
-		'gallery',
-		'caption',
-		'style',
-		'script',
-	) );
-
-	// Register Navigation Menus
 	register_nav_menus( array(
 		'primary' => __( 'Primary Navigation', 'aberdeen-theme' ),
-		'footer'  => __( 'Footer Navigation', 'aberdeen-theme' ),
 	) );
 }
 add_action( 'after_setup_theme', 'aberdeen_theme_setup' );
 
-// ==========================================
 // 2. Enqueue Styles & Scripts
-// ==========================================
 function aberdeen_enqueue_assets() {
-	// Google Fonts: Outfit & Inter
 	wp_enqueue_style(
 		'aberdeen-google-fonts',
 		'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap',
@@ -59,15 +28,22 @@ function aberdeen_enqueue_assets() {
 		null
 	);
 
-	// Theme Main Stylesheet
+	wp_enqueue_style(
+		'aberdeen-fontawesome',
+		'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
+		array(),
+		'6.5.1'
+	);
+
+	$css_file = get_template_directory() . '/assets/css/main.css';
+	$css_ver  = file_exists( $css_file ) ? filemtime( $css_file ) : time();
 	wp_enqueue_style(
 		'aberdeen-main-style',
 		get_template_directory_uri() . '/assets/css/main.css',
 		array( 'aberdeen-google-fonts' ),
-		'1.0.0'
+		$css_ver
 	);
 
-	// Theme Vanilla JS (Modal, Navigation & Tracking)
 	wp_enqueue_script(
 		'aberdeen-theme-script',
 		get_template_directory_uri() . '/assets/js/theme.js',
@@ -76,28 +52,27 @@ function aberdeen_enqueue_assets() {
 		true
 	);
 
-	// Pass variables to JS
 	wp_localize_script( 'aberdeen-theme-script', 'aberdeenData', array(
-		'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
-		'restUrl'   => esc_url_raw( rest_url( 'programs/v1/track' ) ),
-		'restNonce' => wp_create_nonce( 'wp_rest' ),
-		'leadNonce' => wp_create_nonce( 'aberdeen_lead_nonce' ),
+		'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
+		'restUrl'       => esc_url_raw( rest_url( 'programs/v1/track' ) ),
+		'filterRestUrl' => esc_url_raw( rest_url( 'programs/v1/filter' ) ),
+		'restNonce'     => wp_create_nonce( 'wp_rest' ),
+		'leadNonce'     => wp_create_nonce( 'aberdeen_lead_nonce' ),
 	) );
+
+	if ( function_exists( 'wp_register_script_module' ) && function_exists( 'wp_enqueue_script_module' ) ) {
+		wp_register_script_module(
+			'aberdeen-interactivity-filter',
+			get_template_directory_uri() . '/assets/js/interactivity-filter.js',
+			array( '@wordpress/interactivity' ),
+			'1.0.0'
+		);
+		wp_enqueue_script_module( 'aberdeen-interactivity-filter' );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'aberdeen_enqueue_assets' );
 
-// ==========================================
-// 3. Compulsory Reusable Click-Tracking Helper (Task 8.3)
-// ==========================================
-/**
- * Builds, encodes, and escapes the click-tracking JSON payload safely.
- *
- * @param string $event     'link' or 'button'
- * @param string $label     Short sanitized slug (e.g. 'apply-now', 'enquire-now')
- * @param string $section   Section identifier (e.g. 'programme-overview', 'hero-banner')
- * @param string $component UI component type (e.g. 'componentLink', 'componentButton', 'componentCard')
- * @return string Safe data-track attribute string
- */
+// 3. Click Tracking Helper (Task 8)
 function program_track_attr( $event, $label, $section, $component ) {
 	$event = in_array( $event, array( 'link', 'button' ), true ) ? $event : 'link';
 
@@ -116,36 +91,32 @@ function program_track_attr( $event, $label, $section, $component ) {
 	return 'data-track="' . esc_attr( wp_json_encode( $payload ) ) . '"';
 }
 
-// ==========================================
-// 4. Lead Form AJAX Handler (Popup Modal)
-// ==========================================
+// 4. Lead Form AJAX Handler
 function aberdeen_handle_lead_form() {
 	check_ajax_referer( 'aberdeen_lead_nonce', 'security' );
 
-	$name    = isset( $_POST['fullname'] ) ? sanitize_text_field( wp_unslash( $_POST['fullname'] ) ) : '';
-	$email   = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
-	$phone   = isset( $_POST['phone'] ) ? sanitize_text_field( wp_unslash( $_POST['phone'] ) ) : '';
-	$program = isset( $_POST['program'] ) ? sanitize_text_field( wp_unslash( $_POST['program'] ) ) : '';
-	$city    = isset( $_POST['city'] ) ? sanitize_text_field( wp_unslash( $_POST['city'] ) ) : '';
+	$first_name     = isset( $_POST['first_name'] ) ? sanitize_text_field( wp_unslash( $_POST['first_name'] ) ) : '';
+	$last_name      = isset( $_POST['last_name'] ) ? sanitize_text_field( wp_unslash( $_POST['last_name'] ) ) : '';
+	$email          = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+	$phone          = isset( $_POST['phone'] ) ? sanitize_text_field( wp_unslash( $_POST['phone'] ) ) : '';
+	$enquiring_as   = isset( $_POST['enquiring_as'] ) ? sanitize_text_field( wp_unslash( $_POST['enquiring_as'] ) ) : '';
+	$level_interest = isset( $_POST['level_of_interest'] ) ? sanitize_text_field( wp_unslash( $_POST['level_of_interest'] ) ) : '';
+	$prog_interest  = isset( $_POST['programme_of_interest'] ) ? sanitize_text_field( wp_unslash( $_POST['programme_of_interest'] ) ) : '';
+	$country        = isset( $_POST['country'] ) ? sanitize_text_field( wp_unslash( $_POST['country'] ) ) : '';
+	$city           = isset( $_POST['city'] ) ? sanitize_text_field( wp_unslash( $_POST['city'] ) ) : '';
 
-	if ( empty( $name ) || empty( $email ) ) {
+	if ( empty( $first_name ) || empty( $email ) ) {
 		wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'aberdeen-theme' ) ) );
 	}
 
-	// Lead successfully recorded
 	wp_send_json_success( array(
-		'message' => get_theme_mod(
-			'aberdeen_thank_you_message',
-			__( 'Thank you for registering your interest! Our admissions team will review your application and contact you shortly.', 'aberdeen-theme' )
-		),
+		'message' => __( "We'll send you helpful information and updates about this programme, the application process, and more.", 'aberdeen-theme' ),
 	) );
 }
 add_action( 'wp_ajax_aberdeen_submit_lead', 'aberdeen_handle_lead_form' );
 add_action( 'wp_ajax_nopriv_aberdeen_submit_lead', 'aberdeen_handle_lead_form' );
 
-// ==========================================
 // 5. Breadcrumbs Helper
-// ==========================================
 function aberdeen_breadcrumbs() {
 	if ( is_front_page() ) {
 		return;
@@ -177,8 +148,3 @@ function aberdeen_breadcrumbs() {
 	echo '</div>';
 	echo '</nav>';
 }
-
-// ==========================================
-// 6. Include Customizer File
-// ==========================================
-require_once get_template_directory() . '/inc/customizer.php';

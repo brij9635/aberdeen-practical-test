@@ -123,6 +123,30 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (modal) {
 			modal.removeAttribute('hidden');
 			document.body.style.overflow = 'hidden';
+
+			// Reset form visibility if previously submitted
+			const formCont = modal.querySelector('#lead-form-container');
+			const tyScreen = modal.querySelector('#lead-thank-you-screen');
+			if (formCont) formCont.style.display = 'block';
+			if (tyScreen) tyScreen.style.display = 'none';
+
+			// Auto pre-select programme on single programme page
+			const pageTitleEl = document.querySelector('.detail-title');
+			const progSelect = document.getElementById('lead-programme-interest');
+			const levelSelect = document.getElementById('lead-level-interest');
+			if (pageTitleEl && progSelect) {
+				const currentTitle = pageTitleEl.textContent.trim();
+				for (let i = 0; i < progSelect.options.length; i++) {
+					if (progSelect.options[i].value === currentTitle) {
+						progSelect.selectedIndex = i;
+						const dataType = progSelect.options[i].getAttribute('data-type');
+						if (dataType && levelSelect) {
+							levelSelect.value = dataType.charAt(0).toUpperCase() + dataType.slice(1);
+						}
+						break;
+					}
+				}
+			}
 		}
 	}
 
@@ -262,4 +286,88 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 		}
 	});
+
+	// ==========================================
+	// 6. Programmes Filter Bar (Task 7 Companion & Fallback Handler)
+	// Supports Interactivity API fallback without jQuery
+	// ==========================================
+	const filterLinks = document.querySelectorAll('.filter-link[data-filter]');
+	const groupsWrapper = document.getElementById('programs-groups-wrapper');
+	const loadingIndicator = document.querySelector('.filter-loading-indicator');
+	const emptyState = document.getElementById('programs-empty-state');
+
+	if (filterLinks.length > 0 && groupsWrapper) {
+		function runFilter(targetFilter, targetHref) {
+			// Update active tab class & aria-selected
+			filterLinks.forEach(function (link) {
+				if (link.getAttribute('data-filter') === targetFilter) {
+					link.classList.add('active');
+					link.setAttribute('aria-selected', 'true');
+				} else {
+					link.classList.remove('active');
+					link.setAttribute('aria-selected', 'false');
+				}
+			});
+
+			// Update URL without page reload
+			if (targetHref && window.history && window.history.pushState) {
+				window.history.pushState({ filter: targetFilter }, '', targetHref);
+			}
+
+			// Show loading state
+			if (loadingIndicator) {
+				loadingIndicator.style.display = 'inline-flex';
+			}
+
+			const filterUrl = (window.aberdeenData && window.aberdeenData.filterRestUrl)
+				? window.aberdeenData.filterRestUrl + '?type=' + encodeURIComponent(targetFilter)
+				: '/wp-json/programs/v1/filter?type=' + encodeURIComponent(targetFilter);
+
+			fetch(filterUrl)
+				.then(function (res) { return res.json(); })
+				.then(function (data) {
+					if (data && data.success) {
+						if (data.count === 0) {
+							groupsWrapper.style.display = 'none';
+							if (emptyState) emptyState.style.display = 'block';
+						} else {
+							groupsWrapper.innerHTML = data.html || '';
+							groupsWrapper.style.display = 'block';
+							if (emptyState) emptyState.style.display = 'none';
+						}
+					}
+				})
+				.catch(function (err) {
+					console.error('Filter error:', err);
+				})
+				.finally(function () {
+					if (loadingIndicator) {
+						loadingIndicator.style.display = 'none';
+					}
+				});
+		}
+
+		filterLinks.forEach(function (tab) {
+			tab.addEventListener('click', function (e) {
+				e.preventDefault();
+				const targetFilter = tab.getAttribute('data-filter') || 'all';
+				const targetHref = tab.getAttribute('href');
+				runFilter(targetFilter, targetHref);
+			});
+		});
+
+		window.addEventListener('popstate', function () {
+			const path = window.location.pathname.toLowerCase();
+			let targetFilter = 'all';
+			if (path.includes('/undergraduate')) {
+				targetFilter = 'undergraduate';
+			} else if (path.includes('/postgraduate')) {
+				targetFilter = 'postgraduate';
+			}
+			const matchingLink = document.querySelector('.filter-link[data-filter="' + targetFilter + '"]');
+			if (matchingLink) {
+				runFilter(targetFilter, matchingLink.getAttribute('href'));
+			}
+		});
+	}
 });
