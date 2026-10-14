@@ -773,7 +773,7 @@ h6 {
 }
 
 .program-card {
-	background-color: var(--color-navy-card);
+	background-color: #111d2f;
 	border-radius: var(--radius-md);
 	overflow: hidden;
 	box-shadow: var(--shadow-sm);
@@ -830,14 +830,15 @@ h6 {
 }
 
 .badge-year {
-	background: rgba(242, 175, 41, 0.15);
-	color: var(--color-gold);
-	border: 1px solid rgba(242, 175, 41, 0.3);
+	background: #111d2f;
+	color: #ffffff;
+	border: 1px solid #486F80;
 }
 
 .badge-duration {
-	background: rgba(255, 255, 255, 0.08);
-	color: rgba(255, 255, 255, 0.9);
+	background: #111d2f;
+	color: #ffffff;
+	border: 1px solid #486F80;
 }
 
 .badge-type {
@@ -848,17 +849,19 @@ h6 {
 .card-title {
 	font-size: 1.25rem;
 	line-height: 1.4;
-	color: var(--color-text-white);
+	color: #f4cb3b;
 	margin-bottom: 0;
 	font-weight: 600;
 }
 
 .card-title a {
-	color: var(--color-text-white);
+	color: #f4cb3b;
+	text-decoration: none;
+	transition: color 0.2s ease;
 }
 
 .card-title a:hover {
-	color: var(--color-gold);
+	color: #ffffff;
 }
 
 /* ==========================================================================
@@ -1925,20 +1928,20 @@ h6 {
 }
 
 .program-card {
-	background: #ffffff;
-	border: 1.5px solid #e2e8f0;
+	background: #111d2f;
+	border: 1.5px solid #1e334d;
 	border-radius: 14px;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	transition: all 0.3s ease;
-	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 }
 
 .program-card:hover {
 	transform: translateY(-5px);
-	box-shadow: 0 12px 28px rgba(8, 43, 64, 0.12);
-	border-color: #cbd5e1;
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+	border-color: #f4cb3b;
 }
 
 .card-media {
@@ -1988,55 +1991,55 @@ h6 {
 .badge {
 	display: inline-flex;
 	align-items: center;
-	gap: 4px;
 	font-size: 0.78rem;
 	font-weight: 700;
-	padding: 3px 10px;
+	padding: 4px 12px;
 	border-radius: 20px;
 	line-height: 1.4;
 }
 
 .badge-year {
-	background: #FEF8E4;
-	color: #855b00;
-	border: 1px solid #f6d88c;
+	background: #111d2f;
+	color: #ffffff;
+	border: 1px solid #486F80;
 }
 
 .badge-duration {
-	background: #f1f5f9;
-	color: #334155;
-	border: 1px solid #cbd5e1;
+	background: #111d2f;
+	color: #ffffff;
+	border: 1px solid #486F80;
 }
 
 .card-title {
 	font-family: var(--font-heading);
 	font-size: 1.22rem;
 	font-weight: 700;
-	color: #082B40;
 	line-height: 1.4;
 	margin: 0;
 }
 
+.card-title a,
 .card-link {
-	color: #082B40;
+	color: #f4cb3b;
 	text-decoration: none;
 	transition: color 0.2s ease;
 }
 
+.card-title a:hover,
 .card-link:hover {
-	color: #0284c7;
+	color: #ffffff;
 }
 
 .card-link:focus-visible {
-	color: #0284c7;
-	outline: 2px solid #FBCB3B;
+	color: #ffffff;
+	outline: 2px solid #f4cb3b;
 	outline-offset: 4px;
 	border-radius: 4px;
 }
 
 .program-card:focus-within {
-	border-color: #082B40;
-	box-shadow: 0 0 0 3px rgba(251, 203, 59, 0.4), 0 12px 28px rgba(8, 43, 64, 0.12);
+	border-color: #f4cb3b;
+	box-shadow: 0 0 0 3px rgba(244, 203, 59, 0.4), 0 12px 28px rgba(0, 0, 0, 0.3);
 }
 
 /* ==========================================================================

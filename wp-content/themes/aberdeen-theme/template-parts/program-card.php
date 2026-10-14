@@ -52,10 +52,10 @@ if ( empty( $duration ) ) {
 		<!-- Badges: Academic Year & Duration -->
 		<div class="card-meta">
 			<span class="badge badge-year" aria-label="<?php esc_attr_e( 'Academic Year', 'aberdeen-theme' ); ?>">
-				📅 <?php echo esc_html( $academic_year ); ?>
+				<?php echo esc_html( $academic_year ); ?>
 			</span>
 			<span class="badge badge-duration" aria-label="<?php esc_attr_e( 'Duration', 'aberdeen-theme' ); ?>">
-				⏱️ <?php echo esc_html( $duration ); ?>
+				<?php echo esc_html( $duration ); ?>
 			</span>
 		</div>
 
