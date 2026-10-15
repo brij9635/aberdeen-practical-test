@@ -1,7 +1,7 @@
 <?php
 /**
  * Taxonomy Template: Programme Type Archive (Figma Exact "Desktop P2" Match)
- * Handles /programmes/undergraduate and /programmes/postgraduate
+ * Handles /programmes/undergraduate and /programmes/postgraduate dynamically
  *
  * @package Aberdeen_Theme
  */
@@ -14,8 +14,9 @@ if ( empty( $program_type ) ) {
 	$req_uri      = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 	$program_type = ( strpos( $req_uri, 'postgraduate' ) !== false ) ? 'postgraduate' : 'undergraduate';
 }
-$is_undergrad = ( 'undergraduate' === $program_type );
-$page_title   = $is_undergrad ? 'Undergraduate Programmes' : 'Postgraduate Programmes';
+
+$term_obj   = get_term_by( 'slug', $program_type, 'program-type' );
+$page_title = $term_obj ? ( $term_obj->name . ' Programmes' ) : ( ucfirst( $program_type ) . ' Programmes' );
 ?>
 
 <!-- =========================================================================
@@ -38,67 +39,74 @@ $page_title   = $is_undergrad ? 'Undergraduate Programmes' : 'Postgraduate Progr
 		</p>
 
 		<div class="p2-cards-grid">
-			<?php if ( $is_undergrad ) : ?>
-				<!-- Card 1: Bachelor of Computer Applications (BCA) -->
-				<div class="p2-card">
-					<div class="p2-card-img-wrap">
-						<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/program_img2.jpg' ); ?>" alt="<?php esc_attr_e( 'Bachelor of Computer Applications (BCA)', 'aberdeen-theme' ); ?>" class="p2-card-img">
-					</div>
-					<div class="p2-card-body">
-						<h2 class="p2-card-title">Bachelor of Computer Applications (BCA)</h2>
-						<div class="p2-card-divider"></div>
-						<p class="p2-card-desc">
-							Learn programming, software development, and modern technologies through practical, industry-focused education.
-						</p>
-					</div>
-				</div>
+			<?php
+			$p2_query = new WP_Query( array(
+				'post_type'      => 'program',
+				'posts_per_page' => -1,
+				'tax_query'      => array(
+					array(
+						'taxonomy' => 'program-type',
+						'field'    => 'slug',
+						'terms'    => $program_type,
+					),
+				),
+				'orderby'        => 'menu_order title',
+				'order'          => 'ASC',
+			) );
 
-				<!-- Card 2: Bachelor of Engineering (B.E.) -->
-				<div class="p2-card">
-					<div class="p2-card-img-wrap">
-						<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/program_img.jpg' ); ?>" alt="<?php esc_attr_e( 'Bachelor of Engineering (B.E.)', 'aberdeen-theme' ); ?>" class="p2-card-img">
-					</div>
-					<div class="p2-card-body">
-						<h2 class="p2-card-title">Bachelor of Engineering (B.E.)</h2>
-						<div class="p2-card-divider"></div>
-						<p class="p2-card-desc">
-							Gain technical knowledge and practical engineering skills to solve real-world challenges.
-						</p>
-					</div>
-				</div>
+			if ( $p2_query->have_posts() ) :
+				$card_index = 0;
+				while ( $p2_query->have_posts() ) :
+					$p2_query->the_post();
+					$card_index++;
+					$post_id   = get_the_ID();
+					$permalink = get_permalink();
+					$title     = get_the_title();
+					$excerpt   = get_the_excerpt();
+					if ( empty( $excerpt ) ) {
+						$excerpt = wp_trim_words( get_the_content(), 20 );
+					}
 
-			<?php else : ?>
-				<!-- Card 1: Master of Computer Applications (MCA) -->
-				<div class="p2-card">
-					<div class="p2-card-img-wrap">
-						<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/program_img2.jpg' ); ?>" alt="<?php esc_attr_e( 'Master of Computer Applications (MCA)', 'aberdeen-theme' ); ?>" class="p2-card-img">
-					</div>
-					<div class="p2-card-body">
-						<h2 class="p2-card-title">Master of Computer Applications (MCA)</h2>
-						<div class="p2-card-divider"></div>
-						<p class="p2-card-desc">
-							Build advanced skills in software development, programming, and emerging technologies through practical learning.
-						</p>
-					</div>
-				</div>
+					// Fallback images matching Figma assets
+					$fallback_img = ( $card_index % 2 === 1 )
+						? get_template_directory_uri() . '/assets/images/program_img2.jpg'
+						: get_template_directory_uri() . '/assets/images/program_img.jpg';
 
-				<!-- Card 2: Master of Engineering (M.E.) -->
-				<div class="p2-card">
-					<div class="p2-card-img-wrap">
-						<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/program_img.jpg' ); ?>" alt="<?php esc_attr_e( 'Master of Engineering (M.E.)', 'aberdeen-theme' ); ?>" class="p2-card-img">
+					$img_url = has_post_thumbnail() ? get_the_post_thumbnail_url( $post_id, 'large' ) : $fallback_img;
+					?>
+					<div class="p2-card" id="program-p2-card-<?php echo esc_attr( $post_id ); ?>">
+						<div class="p2-card-img-wrap">
+							<a href="<?php echo esc_url( $permalink ); ?>" class="p2-card-media-link" <?php echo program_track_attr( 'link', sanitize_title( $title ), 'programme-p2-card', 'componentCard' ); ?>>
+								<img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $title ); ?>" class="p2-card-img">
+							</a>
+						</div>
+						<div class="p2-card-body">
+							<h2 class="p2-card-title">
+								<a href="<?php echo esc_url( $permalink ); ?>" class="p2-title-link" <?php echo program_track_attr( 'link', sanitize_title( $title ), 'programme-p2-card', 'componentCard' ); ?>>
+									<?php echo esc_html( $title ); ?>
+								</a>
+							</h2>
+							<div class="p2-card-divider"></div>
+							<p class="p2-card-desc">
+								<?php echo esc_html( $excerpt ); ?>
+							</p>
+						</div>
 					</div>
-					<div class="p2-card-body">
-						<h2 class="p2-card-title">Master of Engineering (M.E.)</h2>
-						<div class="p2-card-divider"></div>
-						<p class="p2-card-desc">
-							Advance your technical expertise through specialized engineering knowledge, innovation, and hands-on learning.
-						</p>
-					</div>
-				</div>
-			<?php endif; ?>
+					<?php
+				endwhile;
+				wp_reset_postdata();
+			else :
+				?>
+				<p class="text-center" style="grid-column: 1 / -1; font-size: 1.1rem; color: #64748b;">
+					<?php esc_html_e( 'No programmes found in this category.', 'aberdeen-theme' ); ?>
+				</p>
+				<?php
+			endif;
+			?>
 		</div>
 	</div>
 </section>
 
 <?php
 get_footer();
+

@@ -23,16 +23,12 @@ $postgrad_img  = $theme_uri . '/assets/images/home_cours1.jpg';
 
 	<!-- Left Navigation Arrow (Figma Teal Box) -->
 	<button type="button" class="hero-arrow hero-arrow-prev" id="hero-prev" aria-label="<?php esc_attr_e( 'Previous Slide', 'aberdeen-theme' ); ?>" <?php echo program_track_attr( 'button', 'hero-slider-prev', 'hero-carousel', 'componentButton' ); ?>>
-		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-			<polyline points="15 18 9 12 15 6"></polyline>
-		</svg>
+		<i class="fa-solid fa-chevron-left"></i>
 	</button>
 
 	<!-- Right Navigation Arrow (Figma Teal Box) -->
 	<button type="button" class="hero-arrow hero-arrow-next" id="hero-next" aria-label="<?php esc_attr_e( 'Next Slide', 'aberdeen-theme' ); ?>" <?php echo program_track_attr( 'button', 'hero-slider-next', 'hero-carousel', 'componentButton' ); ?>>
-		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-			<polyline points="9 18 15 12 9 6"></polyline>
-		</svg>
+		<i class="fa-solid fa-chevron-right"></i>
 	</button>
 
 	<!-- Slider Content Wrapper -->

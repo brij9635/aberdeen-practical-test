@@ -23,10 +23,7 @@ $all_programs_query = get_posts( array(
 		<div class="figma-modal-header">
 			<h2 class="figma-modal-title" id="figma-modal-title">Register your interest</h2>
 			<button type="button" class="figma-modal-close" data-close-modal aria-label="<?php esc_attr_e( 'Close', 'aberdeen-theme' ); ?>">
-				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-					<line x1="18" y1="6" x2="6" y2="18"></line>
-					<line x1="6" y1="6" x2="18" y2="18"></line>
-				</svg>
+				<i class="fa-solid fa-xmark"></i>
 			</button>
 		</div>
 
@@ -191,10 +188,7 @@ $all_programs_query = get_posts( array(
 		<div class="modal-body" id="lead-thank-you-screen" style="display:none;">
 			<div class="figma-success-banner">
 				<div class="figma-success-icon">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-						<circle cx="12" cy="12" r="10"></circle>
-						<path d="M8 12l2.5 2.5L16 9"></path>
-					</svg>
+					<i class="fa-solid fa-circle-check"></i>
 				</div>
 				<div class="figma-success-content">
 					<h3 class="figma-success-title">Thank you for registering your interest</h3>

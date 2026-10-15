@@ -231,8 +231,8 @@ h6 {
 
 .main-navigation .nav-menu a {
 	color: rgba(255, 255, 255, 0.95);
-	font-size: 0.95rem;
-	font-weight: 500;
+	font-size: 18px;
+	font-weight: 700;
 	padding: 8px 0;
 	letter-spacing: 0.02em;
 }
@@ -274,8 +274,8 @@ h6 {
 	display: flex;
 	align-items: center;
 	width: 100%;
-	height: 26px;
-	margin-bottom: 24px;
+	height: 49px;
+	margin-bottom: 0px;
 }
 
 .header-divider-row::before {
@@ -303,7 +303,7 @@ h6 {
 	background-color: #111D2F;
 	padding: 0 14px;
 	color: #FBCB3B;
-	font-size: 0.82rem;
+	font-size: 18px;
 	font-weight: 600;
 	border-bottom: 1px dotted #FBCB3B;
 	letter-spacing: 0.03em;
@@ -370,6 +370,7 @@ h6 {
 	height: 75px;
 	background: rgba(8, 43, 64, 0.95);
 	color: #2dd4bf;
+	font-size: 26px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -405,8 +406,8 @@ h6 {
 	text-align: center;
 	padding-top: 80px;
 	padding-bottom: 34px;
-	padding-left: clamp(24px, 8vw, 180px);
-	padding-right: clamp(24px, 8vw, 180px);
+	/* padding-left: clamp(24px, 8vw, 180px); */
+	/* padding-right: clamp(24px, 8vw, 180px); */
 }
 
 .hero-slides-wrapper {
@@ -429,8 +430,8 @@ h6 {
 
 .hero-slide-title {
 	font-family: var(--font-heading);
-	font-size: 2.65rem;
-	font-weight: 800;
+	font-size: 40px;
+	font-weight: 700;
 	color: #ffffff;
 	margin-bottom: 0;
 	letter-spacing: -0.01em;
@@ -440,11 +441,10 @@ h6 {
 
 .hero-slide-subtitle {
 	font-family: var(--font-primary);
-	font-size: 1.05rem;
+	font-size: 18px;
+	line-height: 30px;
 	color: #ffffff;
-	max-width: 860px;
 	margin: 16px auto 0;
-	line-height: 1.6;
 	cursor: pointer;
 	text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
 	transition: var(--transition);
@@ -510,16 +510,16 @@ h6 {
 
 .careers-main-title {
 	font-family: var(--font-heading);
-	font-size: 2.15rem;
+	font-size: 32px;
+	line-height: 48px;
 	font-weight: 700;
 	color: #2b322e;
-	line-height: 1.25;
 	letter-spacing: -0.01em;
 	margin-bottom: 10px;
 }
 
 .careers-title-bar {
-	width: 175px;
+	width: 87px;
 	height: 3.5px;
 	background-color: #6c6b4e;
 	border-radius: 2px;
@@ -528,8 +528,8 @@ h6 {
 
 .careers-grid {
 	display: grid;
-	grid-template-columns: 1.15fr 1fr;
-	gap: 52px;
+	grid-template-columns: 1.4fr 1fr;
+	gap: 40px;
 	align-items: stretch;
 }
 
@@ -582,7 +582,8 @@ h6 {
 	display: flex;
 	align-items: center;
 	margin-top: auto;
-	padding-top: 24px;
+	padding-top: 11px;
+	padding-bottom: 28px;
 }
 
 .btn-see-more {
@@ -623,7 +624,8 @@ h6 {
 
 .programmes-main-title {
 	font-family: var(--font-heading);
-	font-size: 2.2rem;
+	font-size: 32px;
+	line-height: 48px;
 	font-weight: 700;
 	color: #FBCB3B;
 	margin-bottom: 12px;
@@ -691,11 +693,11 @@ h6 {
 
 .track-title {
 	font-family: var(--font-heading);
-	font-size: 1.45rem;
+	font-size: 32px;
+	line-height: 48px;
 	font-weight: 700;
 	color: #FBCB3B;
 	margin-bottom: 10px;
-	line-height: 1.3;
 }
 
 .track-divider {
@@ -708,8 +710,8 @@ h6 {
 
 .track-desc {
 	font-family: var(--font-primary);
-	font-size: 0.95rem;
-	line-height: 1.6;
+	font-size: 18px;
+	line-height: 28px;
 	color: #FEF8E4;
 	margin-bottom: 24px;
 	flex-grow: 1;
@@ -721,7 +723,7 @@ h6 {
 	justify-content: space-between;
 	color: #FBCB3B;
 	font-family: var(--font-heading);
-	font-size: 0.95rem;
+	font-size: 16px;
 	font-weight: 700;
 	padding: 14px 0;
 	border-width: 1px 0px 1px 0px;
@@ -1356,14 +1358,14 @@ h6 {
 }
 
 .footer-logo-img {
-	height: 44px;
+	height: 62px;
 	width: auto;
 	object-fit: contain;
 }
 
 .footer-address-block {
-	font-size: 0.92rem;
-	line-height: 1.5;
+	font-size: 18px;
+	line-height: 23px;
 	color: rgba(255, 255, 255, 0.82);
 	margin-bottom: 14px;
 }
@@ -1373,7 +1375,8 @@ h6 {
 }
 
 .footer-contact-tel {
-	font-size: 0.92rem;
+	font-size: 18px;
+	line-height: 28px;
 	color: rgba(255, 255, 255, 0.82);
 	margin-bottom: 18px;
 }
@@ -1394,8 +1397,9 @@ h6 {
 
 .footer-gold-link {
 	color: #fab915;
-	font-size: 0.92rem;
-	font-weight: 500;
+	font-size: 18px;
+	line-height: 28px;
+	font-weight: 400;
 	transition: var(--transition);
 }
 
@@ -1408,14 +1412,14 @@ h6 {
 .footer-right-col {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
+	align-items: flex-end;
 	padding-top: 10px;
 }
 
 .footer-social-title {
 	font-family: var(--font-heading);
 	color: #ffffff;
-	font-size: 1.2rem;
+	font-size: 24px;
 	font-weight: 700;
 	margin-bottom: 18px;
 }
@@ -1423,7 +1427,7 @@ h6 {
 .footer-social-icons {
 	display: flex;
 	align-items: center;
-	gap: 16px;
+	gap: 20px;
 }
 
 .social-icon-btn {
@@ -1431,7 +1435,14 @@ h6 {
 	align-items: center;
 	justify-content: center;
 	color: #fab915;
+	font-size: 40px;
+	line-height: 1;
 	transition: var(--transition);
+}
+
+.social-icon-btn i {
+	font-size: 40px;
+	line-height: 1;
 }
 
 .social-icon-btn:hover {
@@ -1452,6 +1463,7 @@ h6 {
 	flex-direction: column;
 	align-items: center;
 	gap: 12px;
+	font-size: 18px;
 }
 
 .footer-policy-links {
@@ -1463,7 +1475,7 @@ h6 {
 
 .footer-policy-links a {
 	color: rgba(255, 255, 255, 0.78);
-	font-size: 0.85rem;
+	font-size: 18px;
 	transition: var(--transition);
 }
 
@@ -1473,7 +1485,7 @@ h6 {
 
 .footer-copyright-text {
 	color: rgba(255, 255, 255, 0.55);
-	font-size: 0.82rem;
+	font-size: 18px;
 	margin: 0;
 }
 
@@ -1581,7 +1593,7 @@ h6 {
 
 .p2-banner-title {
 	font-family: var(--font-heading);
-	font-size: 2.2rem;
+	font-size: 32px;
 	font-weight: 700;
 	color: #FBCB3B;
 	margin-bottom: 12px;
@@ -1604,7 +1616,7 @@ h6 {
 
 .p2-section-subtitle {
 	font-family: var(--font-primary);
-	font-size: 1.05rem;
+	font-size: 18px;
 	font-weight: 500;
 	color: #1a3c54;
 	text-align: center;
@@ -1644,6 +1656,12 @@ h6 {
 	position: relative;
 }
 
+.p2-card-media-link {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
 .p2-card-img {
 	width: 100%;
 	height: 100%;
@@ -1664,11 +1682,22 @@ h6 {
 
 .p2-card-title {
 	font-family: var(--font-heading);
-	font-size: 1.4rem;
+	font-size: 32px;
 	font-weight: 700;
 	color: #FBCB3B;
 	margin-bottom: 12px;
 	line-height: 1.35;
+}
+
+.p2-title-link {
+	color: #FBCB3B;
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.p2-title-link:hover,
+.p2-card:hover .p2-title-link {
+	color: #ffffff;
 }
 
 .p2-card-divider {
@@ -1681,7 +1710,7 @@ h6 {
 
 .p2-card-desc {
 	font-family: var(--font-primary);
-	font-size: 0.95rem;
+	font-size: 18px;
 	line-height: 1.6;
 	color: rgba(255, 255, 255, 0.9);
 	margin-bottom: 0;
@@ -2486,6 +2515,7 @@ h6 {
 	background: transparent;
 	border: none;
 	color: #475569;
+	font-size: 18px;
 	width: 36px;
 	height: 36px;
 	display: flex;

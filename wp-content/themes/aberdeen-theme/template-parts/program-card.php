@@ -42,7 +42,7 @@ if ( empty( $duration ) ) {
 				) ); ?>
 			<?php else : ?>
 				<div class="card-placeholder-img">
-					<span>🎓 <?php echo esc_html( $title ); ?></span>
+					<span><i class="fa-solid fa-graduation-cap"></i> <?php echo esc_html( $title ); ?></span>
 				</div>
 			<?php endif; ?>
 		</a>

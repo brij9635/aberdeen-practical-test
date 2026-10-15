@@ -148,3 +148,27 @@ function aberdeen_breadcrumbs() {
 	echo '</div>';
 	echo '</nav>';
 }
+
+/**
+ * Shortcode-Free Helper Function to render Reusable Program Card (Task 5 Specification)
+ * Usable on any template, page, or query simply by passing post ID.
+ *
+ * @param int  $post_id Optional. Program post ID. Defaults to current post.
+ * @param bool $echo    Optional. Whether to echo or return HTML. Defaults to true.
+ * @return string|void
+ */
+function aberdeen_render_program_card( $post_id = 0, $echo = true ) {
+	$target_id = ! empty( $post_id ) ? absint( $post_id ) : get_the_ID();
+	if ( ! $target_id ) {
+		return '';
+	}
+
+	if ( ! $echo ) {
+		ob_start();
+		get_template_part( 'template-parts/program-card', null, array( 'post_id' => $target_id ) );
+		return ob_get_clean();
+	}
+
+	get_template_part( 'template-parts/program-card', null, array( 'post_id' => $target_id ) );
+}
+
