@@ -13,8 +13,10 @@ wp-config.php
 
 # Default WordPress themes and plugins
 /wp-content/themes/twenty*
+/wp-content/themes/classic*
 /wp-content/plugins/akismet/
 /wp-content/plugins/hello.php
+/wp-content/plugins/classic-editor/
 
 # ==========================================
 # Dependencies
