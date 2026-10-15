@@ -2,6 +2,8 @@
 
 Practical test implementation of a WordPress Programs module and theme based on the provided Figma designs. Built completely with custom code without third-party plugins (no ACF, CMB2, or Elementor).
 
+> **Quick Evaluation Guide**: For a step-by-step reviewer testing checklist with URLs and file paths, see [INSTRUCTIONS.md](INSTRUCTIONS.md).
+
 ---
 
 ## Overview & URLs
