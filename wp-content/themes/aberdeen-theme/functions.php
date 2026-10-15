@@ -23,7 +23,7 @@ add_action( 'after_setup_theme', 'aberdeen_theme_setup' );
 function aberdeen_enqueue_assets() {
 	wp_enqueue_style(
 		'aberdeen-google-fonts',
-		'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap',
+		'https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800;900&display=swap',
 		array(),
 		null
 	);
